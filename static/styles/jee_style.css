@@ -1,0 +1,80 @@
+.navbar{
+    background-color: rgb(209, 248, 248);
+    display: flex;
+    width: 100%;
+}
+.navbar a{
+    padding: 15px 25px 15px 25px;
+    text-decoration: none;
+    font-weight: 300;
+    color: black;
+    font-size: 20px;
+}
+.navbar a:hover{
+    background-color: rgb(32, 212, 32);
+    color: white;
+}
+.root{
+    display: flex;
+}
+
+/* List of topics */
+ul{
+    background-color: cadetblue;
+    margin: -10px 10px 30px 10px;
+    list-style: none;
+    padding: 10px;
+    font-size: 18px;
+    border-radius: 0px 0px 15px 15px;
+}
+
+/* Main Subject Button */
+.sub-button{
+    margin: 10px;
+    padding: 10px;
+    font-size: 28px;
+    font-weight: bold;
+    background-color: chartreuse;
+    border-radius: 15px 15px 0px 0px;
+}
+
+
+/* Main Tab Styling Starts */
+.subject{
+    width: 20%;
+    background-color: aqua;
+}
+.output{
+    width: 80%;
+    min-height: 400px;
+    background-color: grey;
+}
+.additional{
+    padding: 10px;
+    border-radius: 15px;
+    background-color: cornflowerblue;
+    text-align: center;
+    margin: 10px;
+}
+.extra{
+    display: flex;
+    justify-content: space-around;
+}
+.additional button{
+    padding: 5px;
+    border-radius: 10px;
+}
+/* Main Tab Styling Ends */
+
+
+.sub-button:hover{
+    background-color: rgb(169, 235, 104);
+}
+
+.sub-list{
+    display: none;
+}
+
+.options h4{
+    margin: auto;
+}

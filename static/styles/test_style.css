@@ -1,0 +1,151 @@
+.navbar{
+   background-color: rgb(209, 248, 248);
+   height: 50px; 
+   display: flex;
+}
+.navbar a{
+    padding: 15px 25px 15px 25px;
+    text-decoration: none;
+}
+.navbar a:hover{
+    background-color: rgb(32, 212, 32);
+    color: white;
+}
+
+.root{
+    display: flex;
+}
+
+
+.output{
+    background-color: rgb(255, 255, 255);
+    width: 80%;
+    min-height: 500px;
+    display: inline-block;
+}
+.result{
+    padding: 10% 10%;
+}
+td, th{
+    padding: 10px;
+    border: 1px solid black;
+    text-align: center;
+}
+.question{
+    border: 1px solid;
+    margin: 10px;
+    padding: 10px;
+    border-radius: 15px;
+}
+p{
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+.options{
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid;
+}
+.options button{
+    border: 2px solid;
+    padding: 5px;
+    min-height: 50px;
+    min-width: 100px;
+    border-radius: 10px;
+    font-size: 18px;
+}
+
+
+.marker-tab{
+    background-color: rgb(230, 230, 230);
+    width: 20%;
+    display: inline-block;
+}
+.extra-button{
+    display: flex;
+}
+.extra-button button{    
+    display: block;
+    margin: auto;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+
+.sub-button{
+    /*holds subject changing button*/
+    display: flex;
+    padding: 5px 0px;
+    border-style: dashed;
+    border-width: 2px 0px 2px 0px;
+}
+.tablink{
+    /*actual tablink buttons*/
+    border: none;
+    padding: 10px;
+    background-color: grey; 
+    border-radius: 10px;
+    margin: auto;
+    height: 50px;
+    font-weight: bolder;
+}
+.tablink:hover{
+    background-color: rgb(173, 223, 123);
+}
+.tablink.active{
+    background-color: rgb(144, 215, 73)
+}
+
+
+.item-holder{
+    background-color: rgb(230, 230, 230);
+    border-radius: 20px 20px 20px 20px;
+    border: black 1px solid;
+    margin: 30px 0px 10px 0px;
+    padding: 10px 10px 20px;
+    display: none;
+    animation: fadeEffect 1s;
+}
+@keyframes fadeEffect {
+    from {opacity: 0;}
+    to {opacity: 1;}
+}
+.item-holder h2{
+    /*heading of each item-holder*/
+    padding: 10px;
+    margin: 5px;
+    text-align: center;
+}
+.item-button-holder{
+    /*holds all 25 buttons*/
+    padding: 10px 10px;
+    border-style: double;
+}
+.item-button-holder button{
+    /*Changes the property of buttons*/
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: violet;
+    font-size: 15px;
+    padding: 1px;
+    margin: 1px;
+}
+
+
+.clock-holder{
+    background-color: rgb(230, 230, 230);
+    justify-content: space-around;
+    display: flex;
+    margin: 5px;
+}
+#timer-button, #timer{
+    padding: 10px 20px;
+    border-radius: 10px;
+    margin: 2px;
+}
+#timer-button:hover{
+    background-color: rgb(173, 223, 123);
+}
