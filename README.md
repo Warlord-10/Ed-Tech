@@ -9,7 +9,7 @@ Policy.
 # Problem:	
 Students	these	days	are	facing	a	lot	of	issues	while	preparing
 for	various	competitive	examinations	like	JEE	and	NEET.	There	
-are	several	apps	which	do	provide	various	materials to	serves
+are	several	apps	which	do	provide	various	materials to	serve
 the	purpose. But the	presence	of	so many	options available	to	
 the	students,	it	creates	confusion as	which	to	select.
 Along	with	this, the	main	problem	faced	by	the	students	is	the	
@@ -19,7 +19,7 @@ preparation.
 
 
 # Solution:
-With	the	problems	being	known	and	facing	them	personally,	we	
+With	the	problems	being	known	and	facing	them	personally,	I	
 came	up	with a	web	based	EdTech App.
 The	database	filled	with	vast	questions	allows	students to	
 practice	as	much	as	they	want.	It	further	enables	them	to	
