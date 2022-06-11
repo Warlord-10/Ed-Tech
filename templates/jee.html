@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/jee_style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <title>Document</title>
+    
+</head>
+
+<body onload="add_element(pchapters,'sub1','p'), 
+            add_element(cchapters,'sub2','c'), 
+            add_element(mchapters,'sub3','m')"
+    background="{{ url_for('static',filename='background.jpeg') }}"
+    style="margin: auto;">
+
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="#">Cources</a>
+        <a href="{{ url_for('test') }}">Test</a>
+        <a href="{{ url_for('logout') }}">Log Out</a>
+        <a href="{{ url_for('user', name=name) }}", style="margin-left: auto; margin-right: 0px;">{{name}}</a>
+    </div>
+
+    <div class="root">
+        <div class="subject">
+            <form action="/jee" method="POST">
+                
+
+                <!-- Physics Tab -->
+                <div class="sub-button" onclick="expand('phylist')">
+                    PHYSICS   
+                    <input type="checkbox" onClick="toggle(this,'p')" 
+                    name="phy-select" value="True"
+                    style="width: 20px; height: 20px; float: right;" />
+                </div>
+                <!-- List of Topics-->
+                <ul class="sub-list" name="phylist" id="sub1">
+                    <script>
+                        const pchapters=["Units & Measurements","Motion in Straight Line",
+                                "Motion in Plane","Laws of Motion","Work,Energy and Power",
+                                "Rotaional Motion","Gravitation","Mechanical Properties of Solid",
+                                "Mechanical Properties of Fluids","Thermal Properties of Matter",
+                                "Thermodynamics","Kinetic Theory","Oscillations","Waves",
+                                "Electric Charges and Fields","Electrostatic Potential",
+                                "Current Electricity","Magnetism","Electromagnetic Induction",
+                                "Alternating Current","Electromatic Waves","Ray Optics",
+                                "Wave Optics","Dual Nature","Atoms","Nucleus","Semiconductors",
+                                "Communication Systems"];
+                    </script>
+                </ul>
+            
+
+                <!-- Chemistry Tab -->
+                <div class="sub-button" onclick="expand('chemlist')">
+                    CHEMISTRY  
+                    <input type="checkbox" onClick="toggle(this,'c')"
+                    name="chem-select" value="True" 
+                    style="width: 20px; height: 20px; float: right;" />
+                </div>
+                <!-- List of Topics-->
+                <ul class="sub-list" name="chemlist" id="sub2">
+                    <script>
+                        const cchapters=["Basic Concept","Structure of Atom","Periodicity",
+                                "Chemical Bonding and Molecular Structure","States of Matter",
+                                "Thermodynamics","Equilibrium","Redox Reaction","Hydrogen",
+                                "s-Block Elements","p-Block Elements","Basic Organic Chemistry",
+                                "Hydrocarbons","Environmental Chemistry","Solid State","Solutions",
+                                "Electrochemistry","Chemical Kinetics","Surface Chemitry",
+                                "Metallurgy","p-Block Elements(2)","d and f- Block Elements",
+                                "Co-ordination Compounds","Haloalkanes and Haloarenes",
+                                "Alcohols,Phenols and Ethers","Aldehydes,Ketons and Carboxylic Acids",
+                                "Amines","Biomolecules","Polymers","Chemistry in Daily Life"];
+                    </script>
+                </ul>
+                
+
+                <!-- Maths Tab -->
+                <div class="sub-button" onclick="expand('mathlist')">
+                    MATHS   
+                    <input type="checkbox" onClick="toggle(this,'m')" 
+                    name="maths-select" value="True"
+                    style="width: 20px; height: 20px; float: right;" />
+                </div>
+                <!-- List of Topics-->
+                <ul class="sub-list" name="mathlist" id="sub3">
+                    <script>
+                        const mchapters=["Sets","Relations and Functions","trignometric Functions",
+                                "Principle of Mathematical Induction","Complex Numbers and Equations",
+                                "Linear Inequalities","Permutations and Combinations","Binomial Theorem",
+                                "Sequences and Series","Straight Lines","Conic Sections","Limits and Derivatives",
+                                "Mathematical Reasoning","Statistics","Probability","Relations and Functions(2)",
+                                "Inverse Trignometric Functions","Matrices and Determinants","Continuity and Differentiability",
+                                "Applications of Derivatives","Integrals","Application of Integrals","Differential Equations",
+                                "Vector Algebra","3-D Geometry","Probability(2)","Triangles"]
+                    </script>
+                </ul>
+                
+
+                <!-- AAdditional Settings -->
+                <div class="additional">
+                    ADDITIONAL SETTINGS
+                    <br><br>
+                    <input  type="radio"
+                        name="difficulty" value="EASY" checked>EASY
+                    <input  type="radio" 
+                        name="difficulty" value="MEDIUM">MEDIUM
+                    <input  type="radio" 
+                        name="difficulty" value="HARD">HARD
+                    <br><br>
+                    <button type="submit">GENERATE</button>
+                </div>
+
+                <div class="additional extra">
+                    <button type="button">DOWNLOAD</button>
+                    <button type="button">ANSWERS</button>
+                </div>
+
+            </form>
+        </div>
+    
+
+        <!-- Output Tab-->
+        <div class="output">
+            <ol>
+                {% for i in ques: %}
+                <li style="font-size: 22px; padding: 5px; margin: auto; margin-bottom: 20px;">{{i[0]}}
+                    <div class="options" style="display: flex; justify-content: space-between; margin-top: 10px;">
+                        <h4>A) {{i[1]}}</h4>
+                        <h4>B) {{i[2]}}</h4>
+                        <h4>C) {{i[3]}}</h4>
+                        <h4>D) {{i[4]}}</h4>
+                    </div>
+                </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+
+
+    <script>
+        function expand(name){
+            todisplay=document.getElementsByName(name)[0]
+            if (todisplay.style.display == "block") {
+              todisplay.style.display = "none";
+            } 
+            else {
+              todisplay.style.display = "block";
+            }
+        }
+
+        function add_element(chap_list,id_of,type_of){
+            let len_list = chap_list.length;
+            for (let i=0; i<len_list; i++){
+                let opt1=`<li> <input type='checkbox' id='t${i}' name=${type_of} value=${type_of}${i}>`;
+                let opt2=`<label for='t${i}'> ${chap_list[i]} </label> </li>`;
+                let final=opt1+opt2;
+                $(`#${id_of}`).append(final);
+                }
+        }
+
+        function toggle(source,ele_name) {
+            checkboxes = document.getElementsByName(ele_name);
+            for(var i=0, n=checkboxes.length;i<n;i++) {
+                checkboxes[i].checked = source.checked;
+                }
+        }
+    </script>
+
+</body>
+
+</html>

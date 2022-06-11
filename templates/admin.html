@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+</head>
+<body>
+    <form action="/admin" method="POST" style="margin: 10px;">
+        
+        <label for="sbj">SUBJECT</label>
+        <input type="text" name="subject" id="sbj" >
+        <br>
+
+        <label for="chp">CHAPTER</label>
+        <input type="text" name="chapter" id="chp" >
+        <br>
+
+        <input  type="radio"
+            name="level" value="EASY" 
+            style="background-color: rgb(117, 240, 117);">EASY
+        <input  type="radio" 
+            name="level" value="MEDIUM" 
+            style="background-color: rgb(219, 159, 46);">MEDIUM
+        <input  type="radio" 
+            name="level" value="HARD" 
+            style="background-color: rgb(197, 54, 54);">HARD
+        <br><br>
+
+        <label for="ques">QUESTION</label>
+        <br>
+        <textarea rows="10" cols="50" name="question" id="ques"></textarea>
+        <br><br>
+
+        <label for="opt1">Option-A</label>
+        <br>
+        <textarea rows="5" cols="50" name="opt" id="opt1"></textarea>
+        <br>
+
+        <label for="opt2">Option-B</label>
+        <br>
+        <textarea rows="5" cols="50" name="opt" id="opt2"></textarea>        
+        <br>
+
+        <label for="opt3">Option-C</label>
+        <br>
+        <textarea rows="5" cols="50" name="opt" id="opt3"></textarea>
+        <br>
+
+        <label for="opt4">Option-D</label>
+        <br>
+        <textarea rows="5" cols="50" name="opt" id="opt4"></textarea>
+        <br><br>
+
+        <label for="ans">ANSWER</label>
+        <input type="text" name="answer" id="ans" >
+        <br><br>
+        
+        <input type="submit">
+
+    </form>
+    <a href="{{ url_for('login') }}"><button>LOG OUT</button></a>
+
+    <script>
+        function getSelectionText() {
+            var text = "\\[ ";
+            if (window.getSelection) {
+                text += window.getSelection().toString();
+            }
+            return text;
+        }
+    </script>
+</body>
+</html>

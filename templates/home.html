@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--link rel="stylesheet" href="style.css"-->
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/style.css') }}">
+    <title>Home</title>
+
+</head>
+
+<body style="margin: auto; background-color: black;">
+    
+    <div class="navbar">
+        <a href="#">HOME</a>
+        <a href="#">ABOUT US</a>
+    </div>
+    
+    <a href="{{ url_for('jee') }}">
+        <div class="holder tab1" style="margin-left: 20px" >
+            <h1>JEE</h1>
+            <p>A course dedicated to JEE</p>
+        </div>
+    </a>
+
+    <a href="neet.html">
+        <div class="holder tab2" style="margin-right: 20px;">
+            <h1>NEET</h1>
+            <p>A course dedicated to NEET</p>
+        </div>
+    </a>
+
+    <div class="extras">
+        
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/user_style.css') }}">    
+    <title>{{username}}</title>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <a href="{{ url_for('home') }}">HOME</a>
+        <a href="{{ url_for('logout') }}">LOGOUT</a>
+    </div>
+
+    <div class="information container">
+        <div class="div-1">
+            <button type="button" onclick="importData()">
+                <img id="dp_image" src="{{ url_for('static',filename='default.jpeg') }}">
+            </button>
+        </div>
+
+        <div class="div-2">
+            <h3>Name: {{ name }}</h3>
+            <h3>Userame: {{ username }}</h3>
+        </div>
+    </div>
+    <div class="report container">
+
+    </div>
+
+    <script>
+    
+    function readImage(file,output) {
+        const reader = new FileReader();
+        reader.addEventListener('load', (event) => {
+            output.src = event.target.result ;
+
+        });
+        reader.readAsDataURL(file);
+    }
+
+    function importData() {
+        let input = document.createElement('input');
+        input.type = 'file';
+        let boo = document.getElementById("dp_image")
+
+        input.onchange = e => {
+            let file = e.target.files[0];
+            console.log(file);
+            readImage(file,boo);
+        }
+        input.click();
+    }
+
+    
+
+    </script>
+
+</body>
+</html>

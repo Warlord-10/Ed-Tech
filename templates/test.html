@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel= "stylesheet" type= "text/css" href= "{{ url_for('static',filename='styles/test_style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <title>TEST</title>
+</head>
+
+<body style="margin: auto;">
+    <div class="navbar">
+        <a href="{{ url_for('jee') }}">EXIT</a>
+    </div>
+
+    <div class="root">
+        
+        <div class="output" id="output">
+            <div class="result" id="result">
+                <table class="result-table" style="margin: auto;">
+                    <tr>
+                        <th></th>
+                        <th>ATTEMPTED</th>
+                        <th>CORRECT</th>
+                        <th>INCORRECT</th>
+                        <th>MARKS</th>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="marker-tab">
+            <div class="clock-holder">
+                <button id="timer-button" type="button" onclick="start(), this.style.display='none'">START</button>
+                <h2 id="timer">180:00</h2>
+            </div>
+            <div class="sub-button">
+                <button type="button" class="tablink" onclick="switchtab(this,'PHYSICS')" id="default">PHYSICS</button>
+                <button type="button" class="tablink" onclick="switchtab(this,'CHEMISTRY')">CHEMISTRY</button>
+                <button type="button" class="tablink" onclick="switchtab(this,'MATHS')">MATHS</button>
+            </div>
+
+            {% for y in ["PHYSICS","CHEMISTRY","MATHS"] %}
+            <div class="item-holder {{y}}">
+                <h2>{{y}}</h2>
+                <div class="item-button-holder">
+                    {% for x in range(1,26): %}
+                        <button onclick="switch_ques('{{y}}{{x}}')">{{x}}</button>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+            <div class="extra-button">  
+                <button type="button" onclick="evaluation(),this.style.display='none'">SUBMIT</button>
+                <button type="button" onclick="switch_ques('result')">RESULT</button>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+
+        let ANSWERS={};
+        let DETAILS={};
+
+        function switchtab(name,subject){
+            var x =document.getElementsByClassName("tablink")
+            var y =document.getElementsByClassName("item-holder")
+                for (let i=0; i<x.length; i++){
+                    x[i].className ="tablink";
+                    y[i].style.display ="none";
+                }
+            name.className +=" active";
+            var z=document.getElementsByClassName(subject);
+            z[0].style.display="block";
+            switch_ques(subject+"1")
+        }
+        var a=document.getElementById("default");
+        switchtab(a,'PHYSICS');
+
+
+        function switch_ques(given){
+            let all = document.getElementsByClassName("question");
+            for (let index = 0; index < all.length; index++){
+                all[index].style.display = "none";
+            }
+            document.getElementById("result").style.display="none";
+            let selected = document.getElementById(given);
+            selected.style.display = "block";
+
+        }
+
+
+        function create_paper(questions){
+            let available=["PHYSICS","CHEMISTRY","MATHS"]
+            for (let index1 = 0; index1 < 3; index1++) {
+                let curr_sub=available[index1]
+
+                for (let index2 = 1; index2 < questions[curr_sub].length+1; index2++) {
+                    let chosen_ques=questions[curr_sub]
+                    let opt2=   `<div class="question" id="${curr_sub}${index2}">
+                                    <p><strong>${index2}) ${chosen_ques[index2-1][1]}</strong></p>
+                                    <div class="options" id="${chosen_ques[index2-1][0]}">
+                                        <button value="A" type="button" onclick="select_option(this)">${chosen_ques[index2-1][2]}</button>
+                                        <button value="B" type="button" onclick="select_option(this)">${chosen_ques[index2-1][3]}</button>
+                                        <button value="C" type="button" onclick="select_option(this)">${chosen_ques[index2-1][4]}</button>
+                                        <button value="D" type="button" onclick="select_option(this)">${chosen_ques[index2-1][5]}</button>
+                                    </div>
+                                </div>`
+                    $(".output").append(opt2);
+                    ANSWERS[chosen_ques[index2-1][0]]="None";
+                }
+                
+            }
+            switch_ques("PHYSICS1");
+        }
+
+
+        function select_option(given){
+            let baap = given.parentElement;
+            let q = baap.getElementsByTagName("button");
+            for (let index1 = 0; index1 < 4; index1++) {
+                q[index1].setAttribute("class","");
+                q[index1].style.backgroundColor  = "white";
+            }
+            given.setAttribute("class","selected");
+            given.style.backgroundColor  = "lightgrey";
+            ANSWERS[baap.id]=given.value;
+        }
+
+
+        function start(){
+            let x=10800;
+            timerset=setInterval(myTimer, 1000);
+            function myTimer() {
+                if (x!=0){
+                x-=1;
+                }
+            document.getElementById("timer").innerHTML = Math.floor(x/60)+ ":"+ x%60;
+            }
+            
+            $.ajax({type: "POST",
+                    url: "/test",
+                    data: "GENERATE",
+                    success: function(result) {
+                        create_paper(result);
+                    }
+            });
+        }
+
+
+        function calculate_result(ans,names){
+            let right=0,wrong=0,total=0;
+            for (const [key, value] of Object.entries(ans)){
+                x=document.getElementById(key);
+                y=x.parentElement;
+                console.log(key,"original: ",value,"given: ",ANSWERS[key]);
+                
+                if (value!=ANSWERS[key] && ANSWERS[key]!="None"){
+                    y.style.backgroundColor="rgb(204, 61, 61)";
+                    total-=1;
+                    wrong+=1;
+                }
+                else if(value==ANSWERS[key]){
+                    y.style.backgroundColor="rgb(168, 243, 168)";
+                    total+=4;
+                    right+=1;
+                }  
+            }
+            let record=`<tr>
+                        <td>${names}</td>
+                        <td>${right+wrong}</td>
+                        <td>${right}</td>
+                        <td>${wrong}</td>
+                        <td>${total}</td>
+                    </tr>`;
+            $(".result-table").append(record);
+            return [right+wrong,right,wrong,total];
+        }
+
+
+        function evaluation(){
+            clearInterval(timerset)
+            x=document.getElementById("output");
+            y=x.getElementsByTagName("button");
+            for (let index = 0; index < y.length; index++) {
+                y[index].disabled="true";
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/evaluate",
+                data: JSON.stringify(ANSWERS),
+                contentType: "application/json",
+                dataType: 'json',
+                success: function(result) {
+                    pr=calculate_result(result["PHYSICS"],"PHYSICS")
+                    cr=calculate_result(result["CHEMISTRY"],"CHEMISTRY")
+                    mr=calculate_result(result["MATHS"],"MATHS")
+                    obtained=pr[3]+cr[3]+mr[3]
+                    let record=`<tr>
+                                    <td>TOTAL</td>
+                                    <th>${pr[0]+cr[0]+mr[0]}</th>
+                                    <th>${pr[1]+cr[1]+mr[1]}</th>
+                                    <th>${pr[2]+cr[2]+mr[2]}</th>
+                                    <th>${obtained}</th>
+                                </tr>`;
+                    $(".result-table").append(record);
+                    DETAILS["DATE"]=new Date().toDateString();
+                    DETAILS["MARKS"]=String(obtained)+"/300"
+                    console.log(DETAILS)
+                }
+            })
+            switch_ques('result');
+        }
+
+    </script>
+</body>
+</html>
